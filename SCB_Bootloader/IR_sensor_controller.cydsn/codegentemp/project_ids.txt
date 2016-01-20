@@ -1,0 +1,8 @@
+C:\Cypress\IR_sensor_controller\SCB_Bootloader\UART_Bootloader.cydsn\UART_Bootloader.cyprj|9ac10fd5-01e1-4f39-b4f6-3b9feaf0750d
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|a5ea9538-9acb-40f1-9bc6-b8d9ec39fed7
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|d1237ccc-4a33-4f01-ac55-9fe456a1a98a
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|ce143653-11ce-4fd7-b900-a1cafeaa804d
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|7a6703a8-5a35-47d0-9e62-8c9c443e609b
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|31652514-157b-4d3f-a0a9-4a529d305534
+C:\Cypress\IR_sensor_controller\SCB_Bootloader\IR_sensor_controller.cydsn\IR_sensor_controller.cyprj|75237098-2815-47bc-8606-97506cac63e0
+C:\Program Files\Cypress\PSoC Creator\3.3\PSoC Creator\dev\psoc4\PSoC4AnalogDevice\psoc4arch.cydsn\psoc4arch.cyprj|f8f9a5ab-f983-45bb-8340-8ae6c3e57db7

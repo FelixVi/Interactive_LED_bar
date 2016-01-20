@@ -1,0 +1,1232 @@
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	result
+  18              		.bss
+  19              		.align	2
+  20              		.type	result, %object
+  21              		.size	result, 16
+  22              	result:
+  23 0000 00000000 		.space	16
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  24              		.global	dataReady
+  25              		.type	dataReady, %object
+  26              		.size	dataReady, 1
+  27              	dataReady:
+  28 0010 00       		.space	1
+  29 0011 000000   		.section	.rodata
+  30              		.align	2
+  31              	.LC0:
+  32 0000 54455354 		.ascii	"TEST\000"
+  32      00
+  33 0005 000000   		.align	2
+  34              	.LC5:
+  35 0008 256900   		.ascii	"%i\000"
+  36 000b 00       		.align	2
+  37              	.LC7:
+  38 000c 20202020 		.ascii	"    \000"
+  38      00
+  39              		.section	.text.main,"ax",%progbits
+  40              		.align	2
+  41              		.global	main
+  42              		.code	16
+  43              		.thumb_func
+  44              		.type	main, %function
+  45              	main:
+  46              	.LFB33:
+  47              		.file 1 ".\\main.c"
+   1:.\main.c      **** /******************************************************************************
+   2:.\main.c      **** * Project Name		: Bootloadable Blinking LED
+   3:.\main.c      **** * File Name			: main.c
+   4:.\main.c      **** * Version 			: 1.0
+   5:.\main.c      **** * Device Used		: CY8C4245AXI-483
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 2
+
+
+   6:.\main.c      **** * Software Used		: PSoC Creator 3.1
+   7:.\main.c      **** * Compiler    		: ARMGCC 4.8.4, ARM RVDS Generic, ARM MDK Generic
+   8:.\main.c      **** * Related Hardware	: CY8CKIT-049-42xx PSoC 4 Prototyping Kit 
+   9:.\main.c      **** *
+  10:.\main.c      **** ********************************************************************************
+  11:.\main.c      **** * Copyright (2015), Cypress Semiconductor Corporation. All Rights Reserved.
+  12:.\main.c      **** ********************************************************************************
+  13:.\main.c      **** * This software is owned by Cypress Semiconductor Corporation (Cypress)
+  14:.\main.c      **** * and is protected by and subject to worldwide patent protection (United
+  15:.\main.c      **** * States and foreign), United States copyright laws and international treaty
+  16:.\main.c      **** * provisions. Cypress hereby grants to licensee a personal, non-exclusive,
+  17:.\main.c      **** * non-transferable license to copy, use, modify, create derivative works of,
+  18:.\main.c      **** * and compile the Cypress Source Code and derivative works for the sole
+  19:.\main.c      **** * purpose of creating custom software in support of licensee product to be
+  20:.\main.c      **** * used only in conjunction with a Cypress integrated circuit as specified in
+  21:.\main.c      **** * the applicable agreement. Any reproduction, modification, translation,
+  22:.\main.c      **** * compilation, or representation of this software except as specified above 
+  23:.\main.c      **** * is prohibited without the express written permission of Cypress.
+  24:.\main.c      **** *
+  25:.\main.c      **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH 
+  26:.\main.c      **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  27:.\main.c      **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  28:.\main.c      **** * Cypress reserves the right to make changes without further notice to the 
+  29:.\main.c      **** * materials described herein. Cypress does not assume any liability arising out 
+  30:.\main.c      **** * of the application or use of any product or circuit described herein. Cypress 
+  31:.\main.c      **** * does not authorize its products for use as critical components in life-support 
+  32:.\main.c      **** * systems where a malfunction or failure may reasonably be expected to result in 
+  33:.\main.c      **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  34:.\main.c      **** * support systems application implies that the manufacturer assumes all risk of 
+  35:.\main.c      **** * such use and in doing so indemnifies Cypress against all charges. 
+  36:.\main.c      **** *
+  37:.\main.c      **** * Use of this Software may be limited by and subject to the applicable Cypress
+  38:.\main.c      **** * software license agreement. 
+  39:.\main.c      **** *******************************************************************************/
+  40:.\main.c      **** 
+  41:.\main.c      **** /******************************************************************************
+  42:.\main.c      **** *                           THEORY OF OPERATION
+  43:.\main.c      **** * This is a blinking LED project. A PWM component drives the pin to blink the 
+  44:.\main.c      **** * LED at regular intervals. This project contains a bootloadable component so 
+  45:.\main.c      **** * that it can be bootloaded into PSoC 4 which has a bootloader already programmed 
+  46:.\main.c      **** * into it.
+  47:.\main.c      **** * Default UART Port Configuration for bootloading the PSoC 4 in CY8CKIT-049-42xx
+  48:.\main.c      **** * Baud Rate : 115200 bps
+  49:.\main.c      **** * Data Bits : 8
+  50:.\main.c      **** * Stop Bits : 1
+  51:.\main.c      **** * Parity    : None
+  52:.\main.c      **** ******************************************************************************/
+  53:.\main.c      **** #include <project.h>
+  54:.\main.c      **** #include <stdio.h>
+  55:.\main.c      **** 
+  56:.\main.c      **** uint16 result[8] = {0,0,0,0,0,0,0,0};
+  57:.\main.c      **** uint8 dataReady = 0;
+  58:.\main.c      **** 
+  59:.\main.c      **** int main()
+  60:.\main.c      **** {
+  48              		.loc 1 60 0
+  49              		.cfi_startproc
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 3
+
+
+  50 0000 90B5     		push	{r4, r7, lr}
+  51              		.cfi_def_cfa_offset 12
+  52              		.cfi_offset 4, -12
+  53              		.cfi_offset 7, -8
+  54              		.cfi_offset 14, -4
+  55 0002 95B0     		sub	sp, sp, #84
+  56              		.cfi_def_cfa_offset 96
+  57 0004 00AF     		add	r7, sp, #0
+  58              		.cfi_def_cfa_register 7
+  61:.\main.c      ****     /* Variables for EEPROM storage */
+  62:.\main.c      ****     static const uint8 CYCODE eepromArray[]=
+  63:.\main.c      ****                                 { 0x08, 0x00, 0x08, 0x00, 0x08, 0x00, 0x08, 0x00,0x08, 0x00, 0x08, 
+  64:.\main.c      ****                                  /* Setting thresholds to 2048 for first start */
+  65:.\main.c      ****     
+  66:.\main.c      ****     cystatus status;
+  67:.\main.c      ****     /* End of variables for EEPROM storage */
+  68:.\main.c      ****     
+  69:.\main.c      ****     EEPROM_Start(); /* Starting the EEPROM */
+  59              		.loc 1 69 0
+  60 0006 FFF7FEFF 		bl	EEPROM_Start
+  70:.\main.c      ****    
+  71:.\main.c      ****     CyGlobalIntEnable; // Enable global interrupts for proper operation of I2C
+  61              		.loc 1 71 0
+  62              	@ 71 ".\main.c" 1
+  63 000a 62B6     		CPSIE   i
+  64              	@ 0 "" 2
+  72:.\main.c      ****     
+  73:.\main.c      ****     /* Start the LCD */
+  74:.\main.c      ****     LCD_Start();
+  65              		.loc 1 74 0
+  66              		.code	16
+  67 000c FFF7FEFF 		bl	LCD_Start
+  75:.\main.c      ****     LCD_PrintString("TEST");
+  68              		.loc 1 75 0
+  69 0010 844B     		ldr	r3, .L11
+  70 0012 181C     		mov	r0, r3
+  71 0014 FFF7FEFF 		bl	LCD_PrintString
+  76:.\main.c      ****     
+  77:.\main.c      ****     /* Initialize I2C component */
+  78:.\main.c      ****     /* Change SCL and SDA pins drive mode to Resistive Pull Up */
+  79:.\main.c      ****     I2C_scl_SetDriveMode(I2C_scl_DM_RES_UP);
+  72              		.loc 1 79 0
+  73 0018 0220     		mov	r0, #2
+  74 001a FFF7FEFF 		bl	I2C_scl_SetDriveMode
+  80:.\main.c      ****     I2C_sda_SetDriveMode(I2C_sda_DM_RES_UP);
+  75              		.loc 1 80 0
+  76 001e 0220     		mov	r0, #2
+  77 0020 FFF7FEFF 		bl	I2C_sda_SetDriveMode
+  81:.\main.c      ****     
+  82:.\main.c      ****     uint8 I2C_Buffer[70]; //define the I2C Buffer
+  83:.\main.c      ****     
+  84:.\main.c      ****     /* 256 byte buffer with 34 r/w bytes (addr 0-31) */
+  85:.\main.c      ****     I2C_EzI2CSetBuffer1(70, 34, (void *) I2C_Buffer);
+  78              		.loc 1 85 0
+  79 0024 3B1D     		add	r3, r7, #4
+  80 0026 4620     		mov	r0, #70
+  81 0028 2221     		mov	r1, #34
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 4
+
+
+  82 002a 1A1C     		mov	r2, r3
+  83 002c FFF7FEFF 		bl	I2C_EzI2CSetBuffer1
+  86:.\main.c      ****     
+  87:.\main.c      ****     I2C_Start();
+  84              		.loc 1 87 0
+  85 0030 FFF7FEFF 		bl	I2C_Start
+  88:.\main.c      ****     /* Finished initialization of I2C component*/
+  89:.\main.c      ****     
+  90:.\main.c      ****     /* Initialize ADC component */
+  91:.\main.c      **** 
+  92:.\main.c      ****     ADC_Start(); /* Initialize ADC */
+  86              		.loc 1 92 0
+  87 0034 FFF7FEFF 		bl	ADC_Start
+  93:.\main.c      ****     ADC_IRQ_Enable(); /* Enable ADC interrupts */
+  88              		.loc 1 93 0
+  89 0038 FFF7FEFF 		bl	ADC_IRQ_Enable
+  94:.\main.c      ****     ADC_StartConvert(); /* Start ADC conversions */
+  90              		.loc 1 94 0
+  91 003c FFF7FEFF 		bl	ADC_StartConvert
+  95:.\main.c      ****     
+  96:.\main.c      ****     /* Finished initialization of ADC component */
+  97:.\main.c      ****     
+  98:.\main.c      ****     int i = 0;
+  92              		.loc 1 98 0
+  93 0040 0023     		mov	r3, #0
+  94 0042 FB64     		str	r3, [r7, #76]
+  99:.\main.c      ****        
+ 100:.\main.c      ****     /* Read from EEPROM to retreive previously saved thresholds*/
+ 101:.\main.c      **** 
+ 102:.\main.c      ****     for(i=0;i<70;i++)
+  95              		.loc 1 102 0
+  96 0044 0023     		mov	r3, #0
+  97 0046 FB64     		str	r3, [r7, #76]
+  98 0048 0CE0     		b	.L2
+  99              	.L3:
+ 103:.\main.c      ****     {
+ 104:.\main.c      ****         I2C_Buffer[i] = *(volatile uint8 *) &eepromArray[i];
+ 100              		.loc 1 104 0 discriminator 3
+ 101 004a 774A     		ldr	r2, .L11+4
+ 102 004c FB6C     		ldr	r3, [r7, #76]
+ 103 004e D318     		add	r3, r2, r3
+ 104 0050 1B78     		ldrb	r3, [r3]
+ 105 0052 D9B2     		uxtb	r1, r3
+ 106 0054 3A1D     		add	r2, r7, #4
+ 107 0056 FB6C     		ldr	r3, [r7, #76]
+ 108 0058 D318     		add	r3, r2, r3
+ 109 005a 0A1C     		add	r2, r1, #0
+ 110 005c 1A70     		strb	r2, [r3]
+ 102:.\main.c      ****     {
+ 111              		.loc 1 102 0 discriminator 3
+ 112 005e FB6C     		ldr	r3, [r7, #76]
+ 113 0060 0133     		add	r3, r3, #1
+ 114 0062 FB64     		str	r3, [r7, #76]
+ 115              	.L2:
+ 102:.\main.c      ****     {
+ 116              		.loc 1 102 0 is_stmt 0 discriminator 1
+ 117 0064 FB6C     		ldr	r3, [r7, #76]
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 5
+
+
+ 118 0066 452B     		cmp	r3, #69
+ 119 0068 EFDD     		ble	.L3
+ 120              	.L10:
+ 105:.\main.c      ****     }
+ 106:.\main.c      ****     
+ 107:.\main.c      ****     /* End of read from EEPROM */
+ 108:.\main.c      **** 
+ 109:.\main.c      ****     //uint8 count = 0;
+ 110:.\main.c      **** 	for(;;)
+ 111:.\main.c      ****     {
+ 112:.\main.c      ****         if (dataReady != 0)
+ 121              		.loc 1 112 0 is_stmt 1
+ 122 006a 704B     		ldr	r3, .L11+8
+ 123 006c 1B78     		ldrb	r3, [r3]
+ 124 006e 002B     		cmp	r3, #0
+ 125 0070 00D1     		bne	.LCB62
+ 126 0072 BFE0     		b	.L4	@long jump
+ 127              	.LCB62:
+ 128              	.LBB2:
+ 113:.\main.c      ****         {
+ 114:.\main.c      ****             /* For testing only */
+ 115:.\main.c      ****             //count++;
+ 116:.\main.c      ****             //if(count == 128)count = 0;
+ 117:.\main.c      ****             char LCD_String[4];
+ 118:.\main.c      ****             sprintf(LCD_String,"%i",(int)result[0]);
+ 129              		.loc 1 118 0
+ 130 0074 6E4B     		ldr	r3, .L11+12
+ 131 0076 1B88     		ldrh	r3, [r3]
+ 132 0078 1C1C     		mov	r4, r3
+ 133 007a 3A1C     		mov	r2, r7
+ 134 007c 6D4B     		ldr	r3, .L11+16
+ 135 007e 101C     		mov	r0, r2
+ 136 0080 191C     		mov	r1, r3
+ 137 0082 221C     		mov	r2, r4
+ 138 0084 FFF7FEFF 		bl	sprintf
+ 119:.\main.c      ****             Debug_LED_reg_Write(result[0] / 128);
+ 139              		.loc 1 119 0
+ 140 0088 694B     		ldr	r3, .L11+12
+ 141 008a 1B88     		ldrh	r3, [r3]
+ 142 008c DB09     		lsr	r3, r3, #7
+ 143 008e 9BB2     		uxth	r3, r3
+ 144 0090 DBB2     		uxtb	r3, r3
+ 145 0092 181C     		mov	r0, r3
+ 146 0094 FFF7FEFF 		bl	Debug_LED_reg_Write
+ 120:.\main.c      ****             LCD_Position(0,0);
+ 147              		.loc 1 120 0
+ 148 0098 0020     		mov	r0, #0
+ 149 009a 0021     		mov	r1, #0
+ 150 009c FFF7FEFF 		bl	LCD_Position
+ 121:.\main.c      ****             LCD_PrintString("    ");
+ 151              		.loc 1 121 0
+ 152 00a0 654B     		ldr	r3, .L11+20
+ 153 00a2 181C     		mov	r0, r3
+ 154 00a4 FFF7FEFF 		bl	LCD_PrintString
+ 122:.\main.c      ****             LCD_Position(0,0);
+ 155              		.loc 1 122 0
+ 156 00a8 0020     		mov	r0, #0
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 6
+
+
+ 157 00aa 0021     		mov	r1, #0
+ 158 00ac FFF7FEFF 		bl	LCD_Position
+ 123:.\main.c      ****             LCD_PrintString(LCD_String);
+ 159              		.loc 1 123 0
+ 160 00b0 3B1C     		mov	r3, r7
+ 161 00b2 181C     		mov	r0, r3
+ 162 00b4 FFF7FEFF 		bl	LCD_PrintString
+ 124:.\main.c      ****             /* End for testing only */
+ 125:.\main.c      ****             dataReady = 0;
+ 163              		.loc 1 125 0
+ 164 00b8 5C4B     		ldr	r3, .L11+8
+ 165 00ba 0022     		mov	r2, #0
+ 166 00bc 1A70     		strb	r2, [r3]
+ 126:.\main.c      ****             /* Now comparing ADC readings to set thresholds */
+ 127:.\main.c      ****             I2C_Buffer[36] = result[0] >> 8;
+ 167              		.loc 1 127 0
+ 168 00be 5C4B     		ldr	r3, .L11+12
+ 169 00c0 1B88     		ldrh	r3, [r3]
+ 170 00c2 1B0A     		lsr	r3, r3, #8
+ 171 00c4 9BB2     		uxth	r3, r3
+ 172 00c6 D9B2     		uxtb	r1, r3
+ 173 00c8 3B1D     		add	r3, r7, #4
+ 174 00ca 2422     		mov	r2, #36
+ 175 00cc 9954     		strb	r1, [r3, r2]
+ 128:.\main.c      ****             I2C_Buffer[37] = result[0];
+ 176              		.loc 1 128 0
+ 177 00ce 584B     		ldr	r3, .L11+12
+ 178 00d0 1B88     		ldrh	r3, [r3]
+ 179 00d2 D9B2     		uxtb	r1, r3
+ 180 00d4 3B1D     		add	r3, r7, #4
+ 181 00d6 2522     		mov	r2, #37
+ 182 00d8 9954     		strb	r1, [r3, r2]
+ 129:.\main.c      ****             I2C_Buffer[38] = result[1] >> 8;
+ 183              		.loc 1 129 0
+ 184 00da 554B     		ldr	r3, .L11+12
+ 185 00dc 5B88     		ldrh	r3, [r3, #2]
+ 186 00de 1B0A     		lsr	r3, r3, #8
+ 187 00e0 9BB2     		uxth	r3, r3
+ 188 00e2 D9B2     		uxtb	r1, r3
+ 189 00e4 3B1D     		add	r3, r7, #4
+ 190 00e6 2622     		mov	r2, #38
+ 191 00e8 9954     		strb	r1, [r3, r2]
+ 130:.\main.c      ****             I2C_Buffer[39] = result[1];
+ 192              		.loc 1 130 0
+ 193 00ea 514B     		ldr	r3, .L11+12
+ 194 00ec 5B88     		ldrh	r3, [r3, #2]
+ 195 00ee D9B2     		uxtb	r1, r3
+ 196 00f0 3B1D     		add	r3, r7, #4
+ 197 00f2 2722     		mov	r2, #39
+ 198 00f4 9954     		strb	r1, [r3, r2]
+ 131:.\main.c      ****             I2C_Buffer[40] = result[2] >> 8;
+ 199              		.loc 1 131 0
+ 200 00f6 4E4B     		ldr	r3, .L11+12
+ 201 00f8 9B88     		ldrh	r3, [r3, #4]
+ 202 00fa 1B0A     		lsr	r3, r3, #8
+ 203 00fc 9BB2     		uxth	r3, r3
+ 204 00fe D9B2     		uxtb	r1, r3
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 7
+
+
+ 205 0100 3B1D     		add	r3, r7, #4
+ 206 0102 2822     		mov	r2, #40
+ 207 0104 9954     		strb	r1, [r3, r2]
+ 132:.\main.c      ****             I2C_Buffer[41] = result[2];
+ 208              		.loc 1 132 0
+ 209 0106 4A4B     		ldr	r3, .L11+12
+ 210 0108 9B88     		ldrh	r3, [r3, #4]
+ 211 010a D9B2     		uxtb	r1, r3
+ 212 010c 3B1D     		add	r3, r7, #4
+ 213 010e 2922     		mov	r2, #41
+ 214 0110 9954     		strb	r1, [r3, r2]
+ 133:.\main.c      ****             I2C_Buffer[42] = result[3] >> 8;
+ 215              		.loc 1 133 0
+ 216 0112 474B     		ldr	r3, .L11+12
+ 217 0114 DB88     		ldrh	r3, [r3, #6]
+ 218 0116 1B0A     		lsr	r3, r3, #8
+ 219 0118 9BB2     		uxth	r3, r3
+ 220 011a D9B2     		uxtb	r1, r3
+ 221 011c 3B1D     		add	r3, r7, #4
+ 222 011e 2A22     		mov	r2, #42
+ 223 0120 9954     		strb	r1, [r3, r2]
+ 134:.\main.c      ****             I2C_Buffer[43] = result[3];
+ 224              		.loc 1 134 0
+ 225 0122 434B     		ldr	r3, .L11+12
+ 226 0124 DB88     		ldrh	r3, [r3, #6]
+ 227 0126 D9B2     		uxtb	r1, r3
+ 228 0128 3B1D     		add	r3, r7, #4
+ 229 012a 2B22     		mov	r2, #43
+ 230 012c 9954     		strb	r1, [r3, r2]
+ 135:.\main.c      ****             I2C_Buffer[44] = result[4] >> 8;
+ 231              		.loc 1 135 0
+ 232 012e 404B     		ldr	r3, .L11+12
+ 233 0130 1B89     		ldrh	r3, [r3, #8]
+ 234 0132 1B0A     		lsr	r3, r3, #8
+ 235 0134 9BB2     		uxth	r3, r3
+ 236 0136 D9B2     		uxtb	r1, r3
+ 237 0138 3B1D     		add	r3, r7, #4
+ 238 013a 2C22     		mov	r2, #44
+ 239 013c 9954     		strb	r1, [r3, r2]
+ 136:.\main.c      ****             I2C_Buffer[45] = result[4];
+ 240              		.loc 1 136 0
+ 241 013e 3C4B     		ldr	r3, .L11+12
+ 242 0140 1B89     		ldrh	r3, [r3, #8]
+ 243 0142 D9B2     		uxtb	r1, r3
+ 244 0144 3B1D     		add	r3, r7, #4
+ 245 0146 2D22     		mov	r2, #45
+ 246 0148 9954     		strb	r1, [r3, r2]
+ 137:.\main.c      ****             I2C_Buffer[46] = result[5] >> 8;
+ 247              		.loc 1 137 0
+ 248 014a 394B     		ldr	r3, .L11+12
+ 249 014c 5B89     		ldrh	r3, [r3, #10]
+ 250 014e 1B0A     		lsr	r3, r3, #8
+ 251 0150 9BB2     		uxth	r3, r3
+ 252 0152 D9B2     		uxtb	r1, r3
+ 253 0154 3B1D     		add	r3, r7, #4
+ 254 0156 2E22     		mov	r2, #46
+ 255 0158 9954     		strb	r1, [r3, r2]
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 8
+
+
+ 138:.\main.c      ****             I2C_Buffer[47] = result[5];
+ 256              		.loc 1 138 0
+ 257 015a 354B     		ldr	r3, .L11+12
+ 258 015c 5B89     		ldrh	r3, [r3, #10]
+ 259 015e D9B2     		uxtb	r1, r3
+ 260 0160 3B1D     		add	r3, r7, #4
+ 261 0162 2F22     		mov	r2, #47
+ 262 0164 9954     		strb	r1, [r3, r2]
+ 139:.\main.c      ****             I2C_Buffer[48] = result[6] >> 8;
+ 263              		.loc 1 139 0
+ 264 0166 324B     		ldr	r3, .L11+12
+ 265 0168 9B89     		ldrh	r3, [r3, #12]
+ 266 016a 1B0A     		lsr	r3, r3, #8
+ 267 016c 9BB2     		uxth	r3, r3
+ 268 016e D9B2     		uxtb	r1, r3
+ 269 0170 3B1D     		add	r3, r7, #4
+ 270 0172 3022     		mov	r2, #48
+ 271 0174 9954     		strb	r1, [r3, r2]
+ 140:.\main.c      ****             I2C_Buffer[49] = result[6];
+ 272              		.loc 1 140 0
+ 273 0176 2E4B     		ldr	r3, .L11+12
+ 274 0178 9B89     		ldrh	r3, [r3, #12]
+ 275 017a D9B2     		uxtb	r1, r3
+ 276 017c 3B1D     		add	r3, r7, #4
+ 277 017e 3122     		mov	r2, #49
+ 278 0180 9954     		strb	r1, [r3, r2]
+ 141:.\main.c      ****             I2C_Buffer[50] = result[7] >> 8;
+ 279              		.loc 1 141 0
+ 280 0182 2B4B     		ldr	r3, .L11+12
+ 281 0184 DB89     		ldrh	r3, [r3, #14]
+ 282 0186 1B0A     		lsr	r3, r3, #8
+ 283 0188 9BB2     		uxth	r3, r3
+ 284 018a D9B2     		uxtb	r1, r3
+ 285 018c 3B1D     		add	r3, r7, #4
+ 286 018e 3222     		mov	r2, #50
+ 287 0190 9954     		strb	r1, [r3, r2]
+ 142:.\main.c      ****             I2C_Buffer[51] = result[7];
+ 288              		.loc 1 142 0
+ 289 0192 274B     		ldr	r3, .L11+12
+ 290 0194 DB89     		ldrh	r3, [r3, #14]
+ 291 0196 D9B2     		uxtb	r1, r3
+ 292 0198 3B1D     		add	r3, r7, #4
+ 293 019a 3322     		mov	r2, #51
+ 294 019c 9954     		strb	r1, [r3, r2]
+ 143:.\main.c      ****             for(i=0; i<8;i++)
+ 295              		.loc 1 143 0
+ 296 019e 0023     		mov	r3, #0
+ 297 01a0 FB64     		str	r3, [r7, #76]
+ 298 01a2 24E0     		b	.L5
+ 299              	.L7:
+ 144:.\main.c      ****             {
+ 145:.\main.c      ****                 if(result[i] > (I2C_Buffer[2*i] * 256 + I2C_Buffer[2*i + 1]))I2C_Buffer[34] |= (1<<
+ 300              		.loc 1 145 0
+ 301 01a4 224B     		ldr	r3, .L11+12
+ 302 01a6 FA6C     		ldr	r2, [r7, #76]
+ 303 01a8 5200     		lsl	r2, r2, #1
+ 304 01aa D35A     		ldrh	r3, [r2, r3]
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 9
+
+
+ 305 01ac 181C     		mov	r0, r3
+ 306 01ae FB6C     		ldr	r3, [r7, #76]
+ 307 01b0 5B00     		lsl	r3, r3, #1
+ 308 01b2 3A1D     		add	r2, r7, #4
+ 309 01b4 D35C     		ldrb	r3, [r2, r3]
+ 310 01b6 1B02     		lsl	r3, r3, #8
+ 311 01b8 FA6C     		ldr	r2, [r7, #76]
+ 312 01ba 5200     		lsl	r2, r2, #1
+ 313 01bc 0132     		add	r2, r2, #1
+ 314 01be 391D     		add	r1, r7, #4
+ 315 01c0 8A5C     		ldrb	r2, [r1, r2]
+ 316 01c2 9B18     		add	r3, r3, r2
+ 317 01c4 9842     		cmp	r0, r3
+ 318 01c6 0FDD     		ble	.L6
+ 319              		.loc 1 145 0 is_stmt 0 discriminator 1
+ 320 01c8 3B1D     		add	r3, r7, #4
+ 321 01ca 2222     		mov	r2, #34
+ 322 01cc 9B5C     		ldrb	r3, [r3, r2]
+ 323 01ce D9B2     		uxtb	r1, r3
+ 324 01d0 0122     		mov	r2, #1
+ 325 01d2 FB6C     		ldr	r3, [r7, #76]
+ 326 01d4 9A40     		lsl	r2, r2, r3
+ 327 01d6 131C     		mov	r3, r2
+ 328 01d8 DBB2     		uxtb	r3, r3
+ 329 01da 0A1C     		add	r2, r1, #0
+ 330 01dc 1343     		orr	r3, r2
+ 331 01de DBB2     		uxtb	r3, r3
+ 332 01e0 D9B2     		uxtb	r1, r3
+ 333 01e2 3B1D     		add	r3, r7, #4
+ 334 01e4 2222     		mov	r2, #34
+ 335 01e6 9954     		strb	r1, [r3, r2]
+ 336              	.L6:
+ 143:.\main.c      ****             for(i=0; i<8;i++)
+ 337              		.loc 1 143 0 is_stmt 1 discriminator 2
+ 338 01e8 FB6C     		ldr	r3, [r7, #76]
+ 339 01ea 0133     		add	r3, r3, #1
+ 340 01ec FB64     		str	r3, [r7, #76]
+ 341              	.L5:
+ 143:.\main.c      ****             for(i=0; i<8;i++)
+ 342              		.loc 1 143 0 is_stmt 0 discriminator 1
+ 343 01ee FB6C     		ldr	r3, [r7, #76]
+ 344 01f0 072B     		cmp	r3, #7
+ 345 01f2 D7DD     		ble	.L7
+ 346              	.L4:
+ 347              	.LBE2:
+ 146:.\main.c      ****             }
+ 147:.\main.c      ****         }
+ 148:.\main.c      ****         if(I2C_Buffer[33] != 0) /* Reset triggers */
+ 348              		.loc 1 148 0 is_stmt 1
+ 349 01f4 3B1D     		add	r3, r7, #4
+ 350 01f6 2122     		mov	r2, #33
+ 351 01f8 9B5C     		ldrb	r3, [r3, r2]
+ 352 01fa 002B     		cmp	r3, #0
+ 353 01fc 07D0     		beq	.L8
+ 149:.\main.c      ****         {
+ 150:.\main.c      ****             I2C_Buffer[33] = 0;
+ 354              		.loc 1 150 0
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 10
+
+
+ 355 01fe 3B1D     		add	r3, r7, #4
+ 356 0200 2122     		mov	r2, #33
+ 357 0202 0021     		mov	r1, #0
+ 358 0204 9954     		strb	r1, [r3, r2]
+ 151:.\main.c      ****             I2C_Buffer[34] = 0;
+ 359              		.loc 1 151 0
+ 360 0206 3B1D     		add	r3, r7, #4
+ 361 0208 2222     		mov	r2, #34
+ 362 020a 0021     		mov	r1, #0
+ 363 020c 9954     		strb	r1, [r3, r2]
+ 364              	.L8:
+ 152:.\main.c      ****         }
+ 153:.\main.c      ****         if(I2C_Buffer[32] != 0) /* EEPROM write */
+ 365              		.loc 1 153 0
+ 366 020e 3B1D     		add	r3, r7, #4
+ 367 0210 2022     		mov	r2, #32
+ 368 0212 9B5C     		ldrb	r3, [r3, r2]
+ 369 0214 002B     		cmp	r3, #0
+ 370 0216 03D0     		beq	.L9
+ 154:.\main.c      ****         {
+ 155:.\main.c      ****             I2C_Buffer[32] = 0;
+ 371              		.loc 1 155 0
+ 372 0218 3B1D     		add	r3, r7, #4
+ 373 021a 2022     		mov	r2, #32
+ 374 021c 0021     		mov	r1, #0
+ 375 021e 9954     		strb	r1, [r3, r2]
+ 376              	.L9:
+ 156:.\main.c      ****             
+ 157:.\main.c      ****             /* EEPROM doesn't work because of bootloader bug */
+ 158:.\main.c      ****             
+ 159:.\main.c      ****             /* Write to EEPROM */
+ 160:.\main.c      ****       
+ 161:.\main.c      ****             //status = EEPROM_Write(I2C_Buffer,eepromArray,70u);
+ 162:.\main.c      ****               
+ 163:.\main.c      ****             //if (CYRET_SUCCESS != status)
+ 164:.\main.c      ****             //{
+ 165:.\main.c      ****                 /* There was a problem writing to EEPROM */
+ 166:.\main.c      ****             //}
+ 167:.\main.c      ****     
+ 168:.\main.c      ****             /* End of write to EEPROM */
+ 169:.\main.c      ****         }
+ 170:.\main.c      ****     }
+ 377              		.loc 1 170 0
+ 378 0220 23E7     		b	.L10
+ 379              	.L12:
+ 380 0222 C046     		.align	2
+ 381              	.L11:
+ 382 0224 00000000 		.word	.LC0
+ 383 0228 14000000 		.word	eepromArray.6073
+ 384 022c 00000000 		.word	dataReady
+ 385 0230 00000000 		.word	result
+ 386 0234 08000000 		.word	.LC5
+ 387 0238 0C000000 		.word	.LC7
+ 388              		.cfi_endproc
+ 389              	.LFE33:
+ 390              		.size	main, .-main
+ 391              		.section	.rodata
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 11
+
+
+ 392 0011 000000   		.align	2
+ 393              		.type	eepromArray.6073, %object
+ 394              		.size	eepromArray.6073, 69
+ 395              	eepromArray.6073:
+ 396 0014 08       		.byte	8
+ 397 0015 00       		.byte	0
+ 398 0016 08       		.byte	8
+ 399 0017 00       		.byte	0
+ 400 0018 08       		.byte	8
+ 401 0019 00       		.byte	0
+ 402 001a 08       		.byte	8
+ 403 001b 00       		.byte	0
+ 404 001c 08       		.byte	8
+ 405 001d 00       		.byte	0
+ 406 001e 08       		.byte	8
+ 407 001f 00       		.byte	0
+ 408 0020 08       		.byte	8
+ 409 0021 00       		.byte	0
+ 410 0022 08       		.byte	8
+ 411 0023 00       		.byte	0
+ 412 0024 08       		.byte	8
+ 413 0025 00       		.byte	0
+ 414 0026 08       		.byte	8
+ 415 0027 00       		.byte	0
+ 416 0028 08       		.byte	8
+ 417 0029 00       		.byte	0
+ 418 002a 08       		.byte	8
+ 419 002b 00       		.byte	0
+ 420 002c 08       		.byte	8
+ 421 002d 00       		.byte	0
+ 422 002e 08       		.byte	8
+ 423 002f 00       		.byte	0
+ 424 0030 00       		.byte	0
+ 425 0031 00       		.byte	0
+ 426 0032 00       		.byte	0
+ 427 0033 00       		.byte	0
+ 428 0034 00       		.byte	0
+ 429 0035 00       		.byte	0
+ 430 0036 00       		.byte	0
+ 431 0037 00       		.byte	0
+ 432 0038 00       		.byte	0
+ 433 0039 00       		.byte	0
+ 434 003a 00       		.byte	0
+ 435 003b 00       		.byte	0
+ 436 003c 00       		.byte	0
+ 437 003d 00       		.byte	0
+ 438 003e 00       		.byte	0
+ 439 003f 00       		.byte	0
+ 440 0040 00       		.byte	0
+ 441 0041 00       		.byte	0
+ 442 0042 00       		.byte	0
+ 443 0043 00       		.byte	0
+ 444 0044 00       		.byte	0
+ 445 0045 00       		.byte	0
+ 446 0046 00       		.byte	0
+ 447 0047 00       		.byte	0
+ 448 0048 00       		.byte	0
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 12
+
+
+ 449 0049 00       		.byte	0
+ 450 004a 00       		.byte	0
+ 451 004b 00       		.byte	0
+ 452 004c 00       		.byte	0
+ 453 004d 00       		.byte	0
+ 454 004e 00       		.byte	0
+ 455 004f 00       		.byte	0
+ 456 0050 00       		.byte	0
+ 457 0051 00       		.byte	0
+ 458 0052 00       		.byte	0
+ 459 0053 00       		.byte	0
+ 460 0054 00       		.byte	0
+ 461 0055 00       		.byte	0
+ 462 0056 00       		.byte	0
+ 463 0057 00       		.byte	0
+ 464 0058 00       		.byte	0
+ 465 0059 000000   		.text
+ 466              	.Letext0:
+ 467              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 468              		.section	.debug_info,"",%progbits
+ 469              	.Ldebug_info0:
+ 470 0000 77010000 		.4byte	0x177
+ 471 0004 0400     		.2byte	0x4
+ 472 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 473 000a 04       		.byte	0x4
+ 474 000b 01       		.uleb128 0x1
+ 475 000c 0E000000 		.4byte	.LASF21
+ 476 0010 01       		.byte	0x1
+ 477 0011 B5010000 		.4byte	.LASF22
+ 478 0015 5B010000 		.4byte	.LASF23
+ 479 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 480 001d 00000000 		.4byte	0
+ 481 0021 00000000 		.4byte	.Ldebug_line0
+ 482 0025 02       		.uleb128 0x2
+ 483 0026 01       		.byte	0x1
+ 484 0027 06       		.byte	0x6
+ 485 0028 4F010000 		.4byte	.LASF0
+ 486 002c 02       		.uleb128 0x2
+ 487 002d 01       		.byte	0x1
+ 488 002e 08       		.byte	0x8
+ 489 002f 06010000 		.4byte	.LASF1
+ 490 0033 02       		.uleb128 0x2
+ 491 0034 02       		.byte	0x2
+ 492 0035 05       		.byte	0x5
+ 493 0036 22010000 		.4byte	.LASF2
+ 494 003a 02       		.uleb128 0x2
+ 495 003b 02       		.byte	0x2
+ 496 003c 07       		.byte	0x7
+ 497 003d 3C010000 		.4byte	.LASF3
+ 498 0041 02       		.uleb128 0x2
+ 499 0042 04       		.byte	0x4
+ 500 0043 05       		.byte	0x5
+ 501 0044 19010000 		.4byte	.LASF4
+ 502 0048 02       		.uleb128 0x2
+ 503 0049 04       		.byte	0x4
+ 504 004a 07       		.byte	0x7
+ 505 004b D1000000 		.4byte	.LASF5
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 13
+
+
+ 506 004f 02       		.uleb128 0x2
+ 507 0050 08       		.byte	0x8
+ 508 0051 05       		.byte	0x5
+ 509 0052 00000000 		.4byte	.LASF6
+ 510 0056 02       		.uleb128 0x2
+ 511 0057 08       		.byte	0x8
+ 512 0058 07       		.byte	0x7
+ 513 0059 E3000000 		.4byte	.LASF7
+ 514 005d 03       		.uleb128 0x3
+ 515 005e 04       		.byte	0x4
+ 516 005f 05       		.byte	0x5
+ 517 0060 696E7400 		.ascii	"int\000"
+ 518 0064 02       		.uleb128 0x2
+ 519 0065 04       		.byte	0x4
+ 520 0066 07       		.byte	0x7
+ 521 0067 A7000000 		.4byte	.LASF8
+ 522 006b 04       		.uleb128 0x4
+ 523 006c CB000000 		.4byte	.LASF9
+ 524 0070 02       		.byte	0x2
+ 525 0071 A1       		.byte	0xa1
+ 526 0072 2C000000 		.4byte	0x2c
+ 527 0076 04       		.uleb128 0x4
+ 528 0077 BE010000 		.4byte	.LASF10
+ 529 007b 02       		.byte	0x2
+ 530 007c A2       		.byte	0xa2
+ 531 007d 3A000000 		.4byte	0x3a
+ 532 0081 02       		.uleb128 0x2
+ 533 0082 04       		.byte	0x4
+ 534 0083 04       		.byte	0x4
+ 535 0084 AF010000 		.4byte	.LASF11
+ 536 0088 02       		.uleb128 0x2
+ 537 0089 08       		.byte	0x8
+ 538 008a 04       		.byte	0x4
+ 539 008b 2C010000 		.4byte	.LASF12
+ 540 008f 02       		.uleb128 0x2
+ 541 0090 01       		.byte	0x1
+ 542 0091 08       		.byte	0x8
+ 543 0092 14010000 		.4byte	.LASF13
+ 544 0096 05       		.uleb128 0x5
+ 545 0097 33010000 		.4byte	.LASF14
+ 546 009b 02       		.byte	0x2
+ 547 009c 4301     		.2byte	0x143
+ 548 009e 48000000 		.4byte	0x48
+ 549 00a2 02       		.uleb128 0x2
+ 550 00a3 04       		.byte	0x4
+ 551 00a4 07       		.byte	0x7
+ 552 00a5 CC010000 		.4byte	.LASF15
+ 553 00a9 06       		.uleb128 0x6
+ 554 00aa BF000000 		.4byte	.LASF24
+ 555 00ae 01       		.byte	0x1
+ 556 00af 3B       		.byte	0x3b
+ 557 00b0 5D000000 		.4byte	0x5d
+ 558 00b4 00000000 		.4byte	.LFB33
+ 559 00b8 3C020000 		.4byte	.LFE33-.LFB33
+ 560 00bc 01       		.uleb128 0x1
+ 561 00bd 9C       		.byte	0x9c
+ 562 00be 13010000 		.4byte	0x113
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 14
+
+
+ 563 00c2 07       		.uleb128 0x7
+ 564 00c3 FA000000 		.4byte	.LASF16
+ 565 00c7 01       		.byte	0x1
+ 566 00c8 3E       		.byte	0x3e
+ 567 00c9 23010000 		.4byte	0x123
+ 568 00cd 05       		.uleb128 0x5
+ 569 00ce 03       		.byte	0x3
+ 570 00cf 14000000 		.4byte	eepromArray.6073
+ 571 00d3 08       		.uleb128 0x8
+ 572 00d4 C4000000 		.4byte	.LASF25
+ 573 00d8 01       		.byte	0x1
+ 574 00d9 42       		.byte	0x42
+ 575 00da 96000000 		.4byte	0x96
+ 576 00de 07       		.uleb128 0x7
+ 577 00df 9C000000 		.4byte	.LASF17
+ 578 00e3 01       		.byte	0x1
+ 579 00e4 52       		.byte	0x52
+ 580 00e5 28010000 		.4byte	0x128
+ 581 00e9 03       		.uleb128 0x3
+ 582 00ea 91       		.byte	0x91
+ 583 00eb A47F     		.sleb128 -92
+ 584 00ed 09       		.uleb128 0x9
+ 585 00ee 6900     		.ascii	"i\000"
+ 586 00f0 01       		.byte	0x1
+ 587 00f1 62       		.byte	0x62
+ 588 00f2 5D000000 		.4byte	0x5d
+ 589 00f6 02       		.uleb128 0x2
+ 590 00f7 91       		.byte	0x91
+ 591 00f8 6C       		.sleb128 -20
+ 592 00f9 0A       		.uleb128 0xa
+ 593 00fa 74000000 		.4byte	.LBB2
+ 594 00fe 80010000 		.4byte	.LBE2-.LBB2
+ 595 0102 07       		.uleb128 0x7
+ 596 0103 B4000000 		.4byte	.LASF18
+ 597 0107 01       		.byte	0x1
+ 598 0108 75       		.byte	0x75
+ 599 0109 38010000 		.4byte	0x138
+ 600 010d 03       		.uleb128 0x3
+ 601 010e 91       		.byte	0x91
+ 602 010f A07F     		.sleb128 -96
+ 603 0111 00       		.byte	0
+ 604 0112 00       		.byte	0
+ 605 0113 0B       		.uleb128 0xb
+ 606 0114 6B000000 		.4byte	0x6b
+ 607 0118 23010000 		.4byte	0x123
+ 608 011c 0C       		.uleb128 0xc
+ 609 011d A2000000 		.4byte	0xa2
+ 610 0121 44       		.byte	0x44
+ 611 0122 00       		.byte	0
+ 612 0123 0D       		.uleb128 0xd
+ 613 0124 13010000 		.4byte	0x113
+ 614 0128 0B       		.uleb128 0xb
+ 615 0129 6B000000 		.4byte	0x6b
+ 616 012d 38010000 		.4byte	0x138
+ 617 0131 0C       		.uleb128 0xc
+ 618 0132 A2000000 		.4byte	0xa2
+ 619 0136 45       		.byte	0x45
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 15
+
+
+ 620 0137 00       		.byte	0
+ 621 0138 0B       		.uleb128 0xb
+ 622 0139 8F000000 		.4byte	0x8f
+ 623 013d 48010000 		.4byte	0x148
+ 624 0141 0C       		.uleb128 0xc
+ 625 0142 A2000000 		.4byte	0xa2
+ 626 0146 03       		.byte	0x3
+ 627 0147 00       		.byte	0
+ 628 0148 0B       		.uleb128 0xb
+ 629 0149 76000000 		.4byte	0x76
+ 630 014d 58010000 		.4byte	0x158
+ 631 0151 0C       		.uleb128 0xc
+ 632 0152 A2000000 		.4byte	0xa2
+ 633 0156 07       		.byte	0x7
+ 634 0157 00       		.byte	0
+ 635 0158 0E       		.uleb128 0xe
+ 636 0159 C5010000 		.4byte	.LASF19
+ 637 015d 01       		.byte	0x1
+ 638 015e 38       		.byte	0x38
+ 639 015f 48010000 		.4byte	0x148
+ 640 0163 05       		.uleb128 0x5
+ 641 0164 03       		.byte	0x3
+ 642 0165 00000000 		.4byte	result
+ 643 0169 0E       		.uleb128 0xe
+ 644 016a A5010000 		.4byte	.LASF20
+ 645 016e 01       		.byte	0x1
+ 646 016f 39       		.byte	0x39
+ 647 0170 6B000000 		.4byte	0x6b
+ 648 0174 05       		.uleb128 0x5
+ 649 0175 03       		.byte	0x3
+ 650 0176 00000000 		.4byte	dataReady
+ 651 017a 00       		.byte	0
+ 652              		.section	.debug_abbrev,"",%progbits
+ 653              	.Ldebug_abbrev0:
+ 654 0000 01       		.uleb128 0x1
+ 655 0001 11       		.uleb128 0x11
+ 656 0002 01       		.byte	0x1
+ 657 0003 25       		.uleb128 0x25
+ 658 0004 0E       		.uleb128 0xe
+ 659 0005 13       		.uleb128 0x13
+ 660 0006 0B       		.uleb128 0xb
+ 661 0007 03       		.uleb128 0x3
+ 662 0008 0E       		.uleb128 0xe
+ 663 0009 1B       		.uleb128 0x1b
+ 664 000a 0E       		.uleb128 0xe
+ 665 000b 55       		.uleb128 0x55
+ 666 000c 17       		.uleb128 0x17
+ 667 000d 11       		.uleb128 0x11
+ 668 000e 01       		.uleb128 0x1
+ 669 000f 10       		.uleb128 0x10
+ 670 0010 17       		.uleb128 0x17
+ 671 0011 00       		.byte	0
+ 672 0012 00       		.byte	0
+ 673 0013 02       		.uleb128 0x2
+ 674 0014 24       		.uleb128 0x24
+ 675 0015 00       		.byte	0
+ 676 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 16
+
+
+ 677 0017 0B       		.uleb128 0xb
+ 678 0018 3E       		.uleb128 0x3e
+ 679 0019 0B       		.uleb128 0xb
+ 680 001a 03       		.uleb128 0x3
+ 681 001b 0E       		.uleb128 0xe
+ 682 001c 00       		.byte	0
+ 683 001d 00       		.byte	0
+ 684 001e 03       		.uleb128 0x3
+ 685 001f 24       		.uleb128 0x24
+ 686 0020 00       		.byte	0
+ 687 0021 0B       		.uleb128 0xb
+ 688 0022 0B       		.uleb128 0xb
+ 689 0023 3E       		.uleb128 0x3e
+ 690 0024 0B       		.uleb128 0xb
+ 691 0025 03       		.uleb128 0x3
+ 692 0026 08       		.uleb128 0x8
+ 693 0027 00       		.byte	0
+ 694 0028 00       		.byte	0
+ 695 0029 04       		.uleb128 0x4
+ 696 002a 16       		.uleb128 0x16
+ 697 002b 00       		.byte	0
+ 698 002c 03       		.uleb128 0x3
+ 699 002d 0E       		.uleb128 0xe
+ 700 002e 3A       		.uleb128 0x3a
+ 701 002f 0B       		.uleb128 0xb
+ 702 0030 3B       		.uleb128 0x3b
+ 703 0031 0B       		.uleb128 0xb
+ 704 0032 49       		.uleb128 0x49
+ 705 0033 13       		.uleb128 0x13
+ 706 0034 00       		.byte	0
+ 707 0035 00       		.byte	0
+ 708 0036 05       		.uleb128 0x5
+ 709 0037 16       		.uleb128 0x16
+ 710 0038 00       		.byte	0
+ 711 0039 03       		.uleb128 0x3
+ 712 003a 0E       		.uleb128 0xe
+ 713 003b 3A       		.uleb128 0x3a
+ 714 003c 0B       		.uleb128 0xb
+ 715 003d 3B       		.uleb128 0x3b
+ 716 003e 05       		.uleb128 0x5
+ 717 003f 49       		.uleb128 0x49
+ 718 0040 13       		.uleb128 0x13
+ 719 0041 00       		.byte	0
+ 720 0042 00       		.byte	0
+ 721 0043 06       		.uleb128 0x6
+ 722 0044 2E       		.uleb128 0x2e
+ 723 0045 01       		.byte	0x1
+ 724 0046 3F       		.uleb128 0x3f
+ 725 0047 19       		.uleb128 0x19
+ 726 0048 03       		.uleb128 0x3
+ 727 0049 0E       		.uleb128 0xe
+ 728 004a 3A       		.uleb128 0x3a
+ 729 004b 0B       		.uleb128 0xb
+ 730 004c 3B       		.uleb128 0x3b
+ 731 004d 0B       		.uleb128 0xb
+ 732 004e 49       		.uleb128 0x49
+ 733 004f 13       		.uleb128 0x13
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 17
+
+
+ 734 0050 11       		.uleb128 0x11
+ 735 0051 01       		.uleb128 0x1
+ 736 0052 12       		.uleb128 0x12
+ 737 0053 06       		.uleb128 0x6
+ 738 0054 40       		.uleb128 0x40
+ 739 0055 18       		.uleb128 0x18
+ 740 0056 9642     		.uleb128 0x2116
+ 741 0058 19       		.uleb128 0x19
+ 742 0059 01       		.uleb128 0x1
+ 743 005a 13       		.uleb128 0x13
+ 744 005b 00       		.byte	0
+ 745 005c 00       		.byte	0
+ 746 005d 07       		.uleb128 0x7
+ 747 005e 34       		.uleb128 0x34
+ 748 005f 00       		.byte	0
+ 749 0060 03       		.uleb128 0x3
+ 750 0061 0E       		.uleb128 0xe
+ 751 0062 3A       		.uleb128 0x3a
+ 752 0063 0B       		.uleb128 0xb
+ 753 0064 3B       		.uleb128 0x3b
+ 754 0065 0B       		.uleb128 0xb
+ 755 0066 49       		.uleb128 0x49
+ 756 0067 13       		.uleb128 0x13
+ 757 0068 02       		.uleb128 0x2
+ 758 0069 18       		.uleb128 0x18
+ 759 006a 00       		.byte	0
+ 760 006b 00       		.byte	0
+ 761 006c 08       		.uleb128 0x8
+ 762 006d 34       		.uleb128 0x34
+ 763 006e 00       		.byte	0
+ 764 006f 03       		.uleb128 0x3
+ 765 0070 0E       		.uleb128 0xe
+ 766 0071 3A       		.uleb128 0x3a
+ 767 0072 0B       		.uleb128 0xb
+ 768 0073 3B       		.uleb128 0x3b
+ 769 0074 0B       		.uleb128 0xb
+ 770 0075 49       		.uleb128 0x49
+ 771 0076 13       		.uleb128 0x13
+ 772 0077 00       		.byte	0
+ 773 0078 00       		.byte	0
+ 774 0079 09       		.uleb128 0x9
+ 775 007a 34       		.uleb128 0x34
+ 776 007b 00       		.byte	0
+ 777 007c 03       		.uleb128 0x3
+ 778 007d 08       		.uleb128 0x8
+ 779 007e 3A       		.uleb128 0x3a
+ 780 007f 0B       		.uleb128 0xb
+ 781 0080 3B       		.uleb128 0x3b
+ 782 0081 0B       		.uleb128 0xb
+ 783 0082 49       		.uleb128 0x49
+ 784 0083 13       		.uleb128 0x13
+ 785 0084 02       		.uleb128 0x2
+ 786 0085 18       		.uleb128 0x18
+ 787 0086 00       		.byte	0
+ 788 0087 00       		.byte	0
+ 789 0088 0A       		.uleb128 0xa
+ 790 0089 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 18
+
+
+ 791 008a 01       		.byte	0x1
+ 792 008b 11       		.uleb128 0x11
+ 793 008c 01       		.uleb128 0x1
+ 794 008d 12       		.uleb128 0x12
+ 795 008e 06       		.uleb128 0x6
+ 796 008f 00       		.byte	0
+ 797 0090 00       		.byte	0
+ 798 0091 0B       		.uleb128 0xb
+ 799 0092 01       		.uleb128 0x1
+ 800 0093 01       		.byte	0x1
+ 801 0094 49       		.uleb128 0x49
+ 802 0095 13       		.uleb128 0x13
+ 803 0096 01       		.uleb128 0x1
+ 804 0097 13       		.uleb128 0x13
+ 805 0098 00       		.byte	0
+ 806 0099 00       		.byte	0
+ 807 009a 0C       		.uleb128 0xc
+ 808 009b 21       		.uleb128 0x21
+ 809 009c 00       		.byte	0
+ 810 009d 49       		.uleb128 0x49
+ 811 009e 13       		.uleb128 0x13
+ 812 009f 2F       		.uleb128 0x2f
+ 813 00a0 0B       		.uleb128 0xb
+ 814 00a1 00       		.byte	0
+ 815 00a2 00       		.byte	0
+ 816 00a3 0D       		.uleb128 0xd
+ 817 00a4 26       		.uleb128 0x26
+ 818 00a5 00       		.byte	0
+ 819 00a6 49       		.uleb128 0x49
+ 820 00a7 13       		.uleb128 0x13
+ 821 00a8 00       		.byte	0
+ 822 00a9 00       		.byte	0
+ 823 00aa 0E       		.uleb128 0xe
+ 824 00ab 34       		.uleb128 0x34
+ 825 00ac 00       		.byte	0
+ 826 00ad 03       		.uleb128 0x3
+ 827 00ae 0E       		.uleb128 0xe
+ 828 00af 3A       		.uleb128 0x3a
+ 829 00b0 0B       		.uleb128 0xb
+ 830 00b1 3B       		.uleb128 0x3b
+ 831 00b2 0B       		.uleb128 0xb
+ 832 00b3 49       		.uleb128 0x49
+ 833 00b4 13       		.uleb128 0x13
+ 834 00b5 3F       		.uleb128 0x3f
+ 835 00b6 19       		.uleb128 0x19
+ 836 00b7 02       		.uleb128 0x2
+ 837 00b8 18       		.uleb128 0x18
+ 838 00b9 00       		.byte	0
+ 839 00ba 00       		.byte	0
+ 840 00bb 00       		.byte	0
+ 841              		.section	.debug_aranges,"",%progbits
+ 842 0000 1C000000 		.4byte	0x1c
+ 843 0004 0200     		.2byte	0x2
+ 844 0006 00000000 		.4byte	.Ldebug_info0
+ 845 000a 04       		.byte	0x4
+ 846 000b 00       		.byte	0
+ 847 000c 0000     		.2byte	0
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 19
+
+
+ 848 000e 0000     		.2byte	0
+ 849 0010 00000000 		.4byte	.LFB33
+ 850 0014 3C020000 		.4byte	.LFE33-.LFB33
+ 851 0018 00000000 		.4byte	0
+ 852 001c 00000000 		.4byte	0
+ 853              		.section	.debug_ranges,"",%progbits
+ 854              	.Ldebug_ranges0:
+ 855 0000 00000000 		.4byte	.LFB33
+ 856 0004 3C020000 		.4byte	.LFE33
+ 857 0008 00000000 		.4byte	0
+ 858 000c 00000000 		.4byte	0
+ 859              		.section	.debug_line,"",%progbits
+ 860              	.Ldebug_line0:
+ 861 0000 B0000000 		.section	.debug_str,"MS",%progbits,1
+ 861      02004300 
+ 861      00000201 
+ 861      FB0E0D00 
+ 861      01010101 
+ 862              	.LASF6:
+ 863 0000 6C6F6E67 		.ascii	"long long int\000"
+ 863      206C6F6E 
+ 863      6720696E 
+ 863      7400
+ 864              	.LASF21:
+ 865 000e 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 865      4320342E 
+ 865      392E3320 
+ 865      32303135 
+ 865      30333033 
+ 866 0041 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 866      20726576 
+ 866      6973696F 
+ 866      6E203232 
+ 866      31323230 
+ 867 0074 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 867      66756E63 
+ 867      74696F6E 
+ 867      2D736563 
+ 867      74696F6E 
+ 868              	.LASF17:
+ 869 009c 4932435F 		.ascii	"I2C_Buffer\000"
+ 869      42756666 
+ 869      657200
+ 870              	.LASF8:
+ 871 00a7 756E7369 		.ascii	"unsigned int\000"
+ 871      676E6564 
+ 871      20696E74 
+ 871      00
+ 872              	.LASF18:
+ 873 00b4 4C43445F 		.ascii	"LCD_String\000"
+ 873      53747269 
+ 873      6E6700
+ 874              	.LASF24:
+ 875 00bf 6D61696E 		.ascii	"main\000"
+ 875      00
+ 876              	.LASF25:
+ 877 00c4 73746174 		.ascii	"status\000"
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 20
+
+
+ 877      757300
+ 878              	.LASF9:
+ 879 00cb 75696E74 		.ascii	"uint8\000"
+ 879      3800
+ 880              	.LASF5:
+ 881 00d1 6C6F6E67 		.ascii	"long unsigned int\000"
+ 881      20756E73 
+ 881      69676E65 
+ 881      6420696E 
+ 881      7400
+ 882              	.LASF7:
+ 883 00e3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 883      206C6F6E 
+ 883      6720756E 
+ 883      7369676E 
+ 883      65642069 
+ 884              	.LASF16:
+ 885 00fa 65657072 		.ascii	"eepromArray\000"
+ 885      6F6D4172 
+ 885      72617900 
+ 886              	.LASF1:
+ 887 0106 756E7369 		.ascii	"unsigned char\000"
+ 887      676E6564 
+ 887      20636861 
+ 887      7200
+ 888              	.LASF13:
+ 889 0114 63686172 		.ascii	"char\000"
+ 889      00
+ 890              	.LASF4:
+ 891 0119 6C6F6E67 		.ascii	"long int\000"
+ 891      20696E74 
+ 891      00
+ 892              	.LASF2:
+ 893 0122 73686F72 		.ascii	"short int\000"
+ 893      7420696E 
+ 893      7400
+ 894              	.LASF12:
+ 895 012c 646F7562 		.ascii	"double\000"
+ 895      6C6500
+ 896              	.LASF14:
+ 897 0133 63797374 		.ascii	"cystatus\000"
+ 897      61747573 
+ 897      00
+ 898              	.LASF3:
+ 899 013c 73686F72 		.ascii	"short unsigned int\000"
+ 899      7420756E 
+ 899      7369676E 
+ 899      65642069 
+ 899      6E7400
+ 900              	.LASF0:
+ 901 014f 7369676E 		.ascii	"signed char\000"
+ 901      65642063 
+ 901      68617200 
+ 902              	.LASF23:
+ 903 015b 433A5C43 		.ascii	"C:\\Cypress\\IR_sensor_controller\\SCB_Bootloader\\"
+ 903      79707265 
+ 903      73735C49 
+ARM GAS  C:\Users\PC69\AppData\Local\Temp\cc7ldeqd.s 			page 21
+
+
+ 903      525F7365 
+ 903      6E736F72 
+ 904 018a 49525F73 		.ascii	"IR_sensor_controller.cydsn\000"
+ 904      656E736F 
+ 904      725F636F 
+ 904      6E74726F 
+ 904      6C6C6572 
+ 905              	.LASF20:
+ 906 01a5 64617461 		.ascii	"dataReady\000"
+ 906      52656164 
+ 906      7900
+ 907              	.LASF11:
+ 908 01af 666C6F61 		.ascii	"float\000"
+ 908      7400
+ 909              	.LASF22:
+ 910 01b5 2E5C6D61 		.ascii	".\\main.c\000"
+ 910      696E2E63 
+ 910      00
+ 911              	.LASF10:
+ 912 01be 75696E74 		.ascii	"uint16\000"
+ 912      313600
+ 913              	.LASF19:
+ 914 01c5 72657375 		.ascii	"result\000"
+ 914      6C7400
+ 915              	.LASF15:
+ 916 01cc 73697A65 		.ascii	"sizetype\000"
+ 916      74797065 
+ 916      00
+ 917              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
