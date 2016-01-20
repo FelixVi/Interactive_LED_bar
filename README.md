@@ -1,4 +1,4 @@
-# Interactive_LED_bar
+# Interactive LED bar
 Interactive LED bar with WS2811 LEDs and home-build IR proximity sensors
 
 Using PSoC4 dev boards to read out infrared sensor nodes. Setup is so that each controller has 8 nodes attached and compares their analog output voltage to a threshold that is set by software. Controllers are setup as I2C slaves so that a master (Arduino or Raspberry Pi) can read a register (SENS_OUT) to find out which sensors have crossed the threshold since the last reset. After a read, the master can reset SENS_OUT by writing a “1” to the RESET register. Thresholds are set by writing their value to THR0 – THR16 registers. Hereby, THR0 is the high byte and THR1 is the low byte for the first threshold, THR2 is the high byte and THR3 is the low byte for the second threshold, etc.
