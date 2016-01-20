@@ -5,8 +5,15 @@ Using PSoC4 dev boards to read out infrared sensor nodes. Setup is so that each 
 I2C is setup to operate at 100 kHz (Arduino default). The PSoC4 are 5V devices, so BSS138 transistors are used as level shifters to allow for 5V pull-ups on the PSoc4 side while 3.3V pull-ups (all resistors are 10k) are used on the Arduino (or Raspberry Pi) side.
 
 Slave address is 0x08 for the first controller and addresses increment by one for each additional node.
+
+R/W registers:
 THR0 – THR16 registers have addresses from 0-15 (0x00 – 0x0F).
+Unused R/W registers have addresses from 16-31 (0x10 - 0x1F)
+EEPROM_WRITE (currently not working) has the address 32 (0x20)
 RESET has the address 33 (0x21).
 SENS_OUT has the address 34 (0x22)
 
-Addresses 0-33 (0x00 – 0x21) are R/W while higher addresses 34-69 (0x22 – 0x45) are read-only.
+Read only registers:
+Unused registers has address 35 (0x23 - 0x1F)
+Most recent ADC values are stored in registers 36 - 51 (0x24 - 0x33)
+Remaining registers are unused
