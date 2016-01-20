@@ -81,7 +81,7 @@ int main()
     
     uint8 I2C_Buffer[70]; //define the I2C Buffer
     
-    /* 256 byte buffer with 34 r/w bytes (addr 0-31) */
+    /* 256 byte buffer with 34 r/w bytes (addr 0-33) */
     I2C_EzI2CSetBuffer1(70, 34, (void *) I2C_Buffer);
     
     I2C_Start();
@@ -97,7 +97,7 @@ int main()
     
     int i = 0;
        
-    /* Read from EEPROM to retreive previously saved thresholds*/
+    /* Read from EEPROM to retreive previously saved thresholds - EEPROM not working becuase of bootloader*/
 
     for(i=0;i<70;i++)
     {
@@ -140,6 +140,7 @@ int main()
             I2C_Buffer[49] = result[6];
             I2C_Buffer[50] = result[7] >> 8;
             I2C_Buffer[51] = result[7];
+            
             for(i=0; i<8;i++)
             {
                 if(result[i] > (I2C_Buffer[2*i] * 256 + I2C_Buffer[2*i + 1]))I2C_Buffer[34] |= (1<<i);
