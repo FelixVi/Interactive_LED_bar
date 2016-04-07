@@ -34,5 +34,6 @@ P1_4.set_animap(default_animap)
 module_a.add_panel(P1_4)
 
 barmodule.populateGrids(module_a)
+barmodule.generateC(module_a, "Pan4")
 
 print "{0}".format(module_a.lednobyxy)
