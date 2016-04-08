@@ -37,3 +37,11 @@ barmodule.populateGrids(module_a)
 barmodule.generateC(module_a, "Pan4")
 
 print "{0}".format(module_a.lednobyxy)
+print "\n\n"
+print "{0}".format(module_a.ledxbyno)
+print "\n\n"
+print "{0}".format(module_a.ledybyno)
+print "\n\n"
+print "{0}".format(module_a.IRaddresses)
+print "\n\n"
+print "{0}".format(module_a.IRregisters)
