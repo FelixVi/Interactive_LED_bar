@@ -6,6 +6,7 @@
 */
 #define TWI_FREQ 100000L
 
+#include <Pan4.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
@@ -26,49 +27,66 @@ void setup() {
   setGrid();
 }
 
-uint16_t grid[7][7];
-int registers[8] = {0, 0, 0, 0, 0, 0, 0, 0}; 
-int reading;
+// uint16_t grid[7][7];
+// int registers[8] = {0, 0, 0, 0, 0, 0, 0, 0}; 
+// int reading;
 
-//Starting locations of the 8 sensor animations
-int animationx[8] = {6, 2, 4, 6, 2, 4, 0, 0};
-int animationy[8] = {3, 2, 4, 6, 6, 0, 4, 0};
+// //Starting locations of the 8 sensor animations
+// int animationx[8] = {6, 2, 4, 6, 2, 4, 0, 0};
+// int animationy[8] = {3, 2, 4, 6, 6, 0, 4, 0};
 
 
 
-//0 means this node is not in the midst of an animation
-//1 means this node is in state one (animation node lit)
-//2 means this node is in state two (square around animation node lit)
-//3 means this node is in state three (super-square around animation node)
-int triggered[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int vals[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-uint32_t color = strip.Color(127, 127, 127);
+// //0 means this node is not in the midst of an animation
+// //1 means this node is in state one (animation node lit)
+// //2 means this node is in state two (square around animation node lit)
+// //3 means this node is in state three (super-square around animation node)
+// int triggered[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int vals[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// uint32_t color = strip.Color(127, 127, 127);
 
-//----> Look-up tables for IR sensor orders
-//### 3 panel board: 0xC, 0xE, 0xD
-//first
-int panel12[8] = {4, 0, 6, 2, 5, 1, 7, 3};
-//second
-int panel14[8] = {3, 6, 5, 7, 0, 4, 1, 2};
-//third
-int panel13[8] = {3, 7, 1, 6, 0, 2, 5, 4};
+// //----> Look-up tables for IR sensor orders
+// //### 3 panel board: 0xC, 0xE, 0xD
+// //first
+// int panel12[8] = {4, 0, 6, 2, 5, 1, 7, 3};
+// //second
+// int panel14[8] = {3, 6, 5, 7, 0, 4, 1, 2};
+// //third
+// int panel13[8] = {3, 7, 1, 6, 0, 2, 5, 4};
 
-//### 4 panel board: 0x09, 0x08, 0x0A, 0x0F
-int panel9[8] = {7, 1, 2, 3, 0, 6, 4, 5};
-int panel8[8] = {7, 6, 1, 4, 5, 2, 0, 3};
-int panel10[8] = {6, 2, 4, 1, 7, 3, 5, 0};
-int panel15[8] = {7, 4, 2, 0, 6, 3, 5, 1};
+// //### 4 panel board: 0x09, 0x08, 0x0A, 0x0F
+// int panel9[8] = {7, 1, 2, 3, 0, 6, 4, 5};
+// int panel8[8] = {7, 6, 1, 4, 5, 2, 0, 3};
+// int panel10[8] = {6, 2, 4, 1, 7, 3, 5, 0};
+// int panel15[8] = {7, 4, 2, 0, 6, 3, 5, 1};
+
+//Led no for x, y position
+//extern const int lednobyxy[28][7];
+
+//LED x coord by # in strip
+//extern const int ledxbyno[200];
+
+//LED y coord by # in strip
+//extern const int ledybyno[200];
+
+//IR Addresses
+//extern const int IRaddr[32];
+
+//IR registers
+//extern const int IRreg[32];
 
 
 void loop() {
-  readNodes(15);
-  for (int t=0; t<8; t++){
-    if (checkAvg(t) > 4 || triggered[t] > 0) {
-      setAnimation(t);  
+  for (int i=0; i<32; i++ ){
+    readNodes(iRaddr[32]);
+    for (int t=0; t<8; t++){
+      if (checkAvg(t) > 4 || triggered[t] > 0) {
+        setAnimation(t);  
+      }
     }
+     strip.show();
+     delay(1000);
   }
-   strip.show();
-   delay(1000);
 }
 
 int checkAvg(int t) {
