@@ -4,7 +4,7 @@
     
     On PSoC it's SDA 0.5 and SCL 0.4
 */
-#define TWI_FREQ 35000L
+#define TWI_FREQ 100000L
 
 #include "Pan4.h"
 #include <Adafruit_NeoPixel.h>
@@ -19,7 +19,7 @@
 
 //Who is in motion
 int triggered[28][7];
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(80, PIN, NEO_GRB + NEO_KHZ400);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(200, PIN, NEO_GRB + NEO_KHZ800);
 //Used to store most recent and prior read values
 int regs[32] = {0, 0, 0, 0, 0, 0, 0, 0,
                       0, 0, 0, 0, 0, 0, 0, 0,
@@ -97,7 +97,7 @@ void loop() {
     }
   }
    strip.show();
-   delay(90);
+   //delay(90);
    //Do we want some kind of delay?
 }
 
