@@ -133,24 +133,28 @@ void readNodes(int x, int y, int reg) {
    int read2;
    int final_reading;
    
-   Wire.beginTransmission(x);
-   Wire.write(y);
-   Wire.endTransmission();
+   //Wire.beginTransmission(x);
+   //Wire.write(y);
+   //Wire.endTransmission();
 //   
 //
-    Wire.requestFrom(x, 1);
-    if (1 <= Wire.available()) {
+    //Wire.requestFrom(x, 1);
+    Wire.requestFrom((uint8_t)x,(uint8_t)1,(uint32_t)y,(uint8_t)1,(uint8_t)1);
+    //Wire.requestFrom((uint8_t)x,(uint8_t)1,(uint32_t)y,(uint8_t)1);
+    //if (1 <= Wire.available()) {
         read1 = Wire.read();
-    }
+    //}
     
-    Wire.beginTransmission(x);
-    Wire.write(y + 1);
-    Wire.endTransmission();
+    //Wire.beginTransmission(x);
+    //Wire.write(y + 1);
+    //Wire.endTransmission();
 
-    Wire.requestFrom(x, 1);
-    if (1 <= Wire.available()) {
+    //Wire.requestFrom(x, 1);
+    Wire.requestFrom((uint8_t)x,(uint8_t)1,(uint32_t)y+1,(uint8_t)1,(uint8_t)1);
+    //Wire.requestFrom((uint8_t)x,(uint8_t)1,(uint32_t)y+1,(uint8_t)1);
+    //if (1 <= Wire.available()) {
         read2 = Wire.read();  
-    }
+    //}
   
     read1 = read1 * 256;
     final_reading = read1 + read2;
